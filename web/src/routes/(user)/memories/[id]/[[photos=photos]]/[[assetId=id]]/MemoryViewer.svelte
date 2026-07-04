@@ -281,6 +281,9 @@
       <ActionButton action={Actions.AddToAlbum} />
 
       <FavoriteAction removeFavorite={assetMultiSelectManager.isAllFavorite} />
+      {#if authManager.preferences.tags.enabled && assetMultiSelectManager.isAllUserOwned}
+        <TagAction />
+      {/if}
 
       <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
         <DownloadAction menuItem />
@@ -288,9 +291,6 @@
         <ChangeDescription menuItem />
         <ChangeLocation menuItem />
         <ArchiveAction menuItem unarchive={assetMultiSelectManager.isAllArchived} onArchive={handleHideAssets} />
-        {#if authManager.preferences.tags.enabled && assetMultiSelectManager.isAllUserOwned}
-          <TagAction menuItem />
-        {/if}
         <RemoveFromAlbum menuItem />
         <DeleteAssets menuItem onAssetDelete={handleHideAssets} />
       </ButtonContextMenu>

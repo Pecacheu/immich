@@ -145,7 +145,9 @@
           }
         }}
       />
-
+      {#if authManager.preferences.tags.enabled && assetMultiSelectManager.isAllUserOwned}
+        <TagAction />
+      {/if}
       <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
         <DownloadAction menuItem />
         <ChangeDate menuItem />
@@ -153,9 +155,6 @@
         <ChangeLocation menuItem />
         <ArchiveAction menuItem unarchive={assetMultiSelectManager.isAllArchived} onArchive={triggerAssetUpdate} />
         <SetVisibilityAction menuItem onVisibilitySet={handleSetVisibility} />
-        {#if authManager.preferences.tags.enabled && assetMultiSelectManager.isAllUserOwned}
-          <TagAction menuItem />
-        {/if}
         <RemoveFromAlbum menuItem />
         <DeleteAssets menuItem onAssetDelete={triggerAssetUpdate} onUndoDelete={triggerAssetUpdate} />
         <hr />

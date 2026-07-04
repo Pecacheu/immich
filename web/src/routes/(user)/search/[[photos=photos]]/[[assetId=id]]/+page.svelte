@@ -371,7 +371,9 @@
                 }
               }}
             />
-
+            {#if authManager.preferences.tags.enabled}
+              <TagAction />
+            {/if}
             <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
               <ActionMenuItem action={Actions.AddToAlbum} />
               <DownloadAction menuItem />
@@ -381,9 +383,6 @@
               <ChangeLocation menuItem />
               <ArchiveAction menuItem unarchive={assetMultiSelectManager.isAllArchived} />
               <SetVisibilityAction menuItem onVisibilitySet={handleSetVisibility} />
-              {#if authManager.preferences.tags.enabled}
-                <TagAction menuItem />
-              {/if}
               <RemoveFromAlbum menuItem onRemove={onSearchQueryUpdate} />
               <DeleteAssets menuItem {onAssetDelete} onUndoDelete={onSearchQueryUpdate} />
               <hr />

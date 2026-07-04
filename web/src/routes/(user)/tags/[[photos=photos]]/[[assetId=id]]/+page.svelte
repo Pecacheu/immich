@@ -134,6 +134,9 @@
           removeFavorite={assetMultiSelectManager.isAllFavorite}
           onFavorite={(ids, isFavorite) => timelineManager.update(ids, (asset) => (asset.isFavorite = isFavorite))}
         ></FavoriteAction>
+        {#if authManager.preferences.tags.enabled}
+          <TagAction />
+        {/if}
         <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
           <DownloadAction menuItem />
           <StackAction {timelineManager} />
@@ -144,9 +147,6 @@
             menuItem
             onArchive={(ids, visibility) => timelineManager.update(ids, (asset) => (asset.visibility = visibility))}
           />
-          {#if authManager.preferences.tags.enabled}
-            <TagAction menuItem />
-          {/if}
           <RemoveFromAlbum menuItem />
           <DeleteAssets
             menuItem

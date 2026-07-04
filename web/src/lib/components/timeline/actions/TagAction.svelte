@@ -29,8 +29,6 @@
 
 {#if menuItem}
   <MenuOption {text} {icon} onClick={handleTagAssets} />
-{/if}
-
-{#if !menuItem}
+{:else}
   <IconButton shape="round" color="secondary" variant="ghost" aria-label={text} {icon} onclick={handleTagAssets} />
 {/if}

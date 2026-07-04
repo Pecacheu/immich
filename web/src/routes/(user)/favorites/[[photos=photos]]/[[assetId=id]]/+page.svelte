@@ -74,6 +74,9 @@
     <CreateSharedLink />
     <SelectAllAssets {timelineManager} assetInteraction={assetMultiSelectManager} />
     <ActionButton action={Actions.AddToAlbum} />
+    {#if authManager.preferences.tags.enabled}
+      <TagAction />
+    {/if}
     <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
       <DownloadAction menuItem />
       <StackAction {timelineManager} />
@@ -85,9 +88,6 @@
         unarchive={assetMultiSelectManager.isAllArchived}
         onArchive={(ids, visibility) => timelineManager.update(ids, (asset) => (asset.visibility = visibility))}
       />
-      {#if authManager.preferences.tags.enabled}
-        <TagAction menuItem />
-      {/if}
       <SetVisibilityAction menuItem onVisibilitySet={handleSetVisibility} />
       <RemoveFromAlbum menuItem />
       <DeleteAssets

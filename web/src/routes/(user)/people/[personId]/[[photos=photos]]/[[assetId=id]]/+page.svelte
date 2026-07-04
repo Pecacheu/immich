@@ -469,6 +469,9 @@
         removeFavorite={assetMultiSelectManager.isAllFavorite}
         onFavorite={(ids, isFavorite) => timelineManager.update(ids, (asset) => (asset.isFavorite = isFavorite))}
       />
+      {#if authManager.preferences.tags.enabled && assetMultiSelectManager.isAllUserOwned}
+        <TagAction />
+      {/if}
       <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
         <DownloadAction menuItem filename={person.name || 'immich'} />
         <MenuOption
@@ -484,9 +487,6 @@
           unarchive={assetMultiSelectManager.isAllArchived}
           onArchive={(ids, visibility) => timelineManager.update(ids, (asset) => (asset.visibility = visibility))}
         />
-        {#if authManager.preferences.tags.enabled && assetMultiSelectManager.isAllUserOwned}
-          <TagAction menuItem />
-        {/if}
         <SetVisibilityAction menuItem onVisibilitySet={handleSetVisibility} />
         <RemoveFromAlbum menuItem />
         <DeleteAssets
