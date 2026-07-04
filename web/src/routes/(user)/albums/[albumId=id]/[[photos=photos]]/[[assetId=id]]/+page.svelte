@@ -22,6 +22,7 @@
   import FavoriteAction from '$lib/components/timeline/actions/FavoriteAction.svelte';
   import RemoveFromAlbum from '$lib/components/timeline/actions/RemoveFromAlbumAction.svelte';
   import SelectAllAssets from '$lib/components/timeline/actions/SelectAllAction.svelte';
+  import StackAction from '$lib/components/timeline/actions/StackAction.svelte';
   import SetVisibilityAction from '$lib/components/timeline/actions/SetVisibilityAction.svelte';
   import TagAction from '$lib/components/timeline/actions/TagAction.svelte';
   import AssetSelectControlBar from '$lib/components/timeline/AssetSelectControlBar.svelte';
@@ -362,7 +363,7 @@
         {showArchiveIcon}
         {onSelect}
         onEscape={handleEscape}
-        withStacked={true}
+        withStacked
       >
         {#if viewMode !== AlbumPageViewMode.SELECT_ASSETS}
           {#if viewMode !== AlbumPageViewMode.SELECT_THUMBNAIL}
@@ -475,6 +476,7 @@
         {/if}
         <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')} offset={{ x: 175, y: 25 }}>
           <DownloadAction menuItem filename={album.albumName} />
+          <StackAction {timelineManager} />
           {#if assetMultiSelectManager.isAllUserOwned}
             <ChangeDate menuItem />
             <ChangeDescription menuItem />

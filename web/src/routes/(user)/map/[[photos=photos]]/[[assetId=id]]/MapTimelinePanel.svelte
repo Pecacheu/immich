@@ -24,12 +24,7 @@
   import { TimelineManager } from '$lib/managers/timeline-manager/timeline-manager.svelte';
   import { getAssetBulkActions } from '$lib/services/asset.service';
   import { mapSettings } from '$lib/stores/preferences.store';
-  import {
-    updateStackedAssetInTimeline,
-    updateUnstackedAssetInTimeline,
-    type OnLink,
-    type OnUnlink,
-  } from '$lib/utils/actions';
+  import { type OnLink, type OnUnlink } from '$lib/utils/actions';
   import { AssetVisibility } from '@immich/sdk';
   import { ActionButton, CloseButton, CommandPaletteDefaultProvider, Icon } from '@immich/ui';
   import { mdiDotsVertical, mdiImageMultiple } from '@mdi/js';
@@ -47,7 +42,6 @@
 
   let timelineManager = $state<TimelineManager>() as TimelineManager;
   let selectedAssets = $derived(assetMultiSelectManager.assets);
-  let isAssetStackSelected = $derived(selectedAssets.length === 1 && !!selectedAssets[0].stack);
   let isLinkActionAvailable = $derived.by(() => {
     const isLivePhoto = selectedAssets.length === 1 && !!selectedAssets[0].livePhotoVideoId;
     const isLivePhotoCandidate =
@@ -114,6 +108,7 @@
     <Timeline
       bind:timelineManager
       enableRouting={false}
+      withStacked
       options={timelineOptions}
       onEscape={handleEscape}
       assetInteraction={assetMultiSelectManager}
@@ -140,13 +135,7 @@
 
         <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
           <DownloadAction menuItem />
-          {#if assetMultiSelectManager.assets.length > 1 || isAssetStackSelected}
-            <StackAction
-              unstack={isAssetStackSelected}
-              onStack={(result) => updateStackedAssetInTimeline(timelineManager, result)}
-              onUnstack={(assets) => updateUnstackedAssetInTimeline(timelineManager, assets)}
-            />
-          {/if}
+          <StackAction {timelineManager} />
           {#if isLinkActionAvailable}
             <LinkLivePhotoAction
               menuItem

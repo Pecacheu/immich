@@ -10,6 +10,7 @@
   import RemoveFromAlbum from '$lib/components/timeline/actions/RemoveFromAlbumAction.svelte';
   import DownloadAction from '$lib/components/timeline/actions/DownloadAction.svelte';
   import SelectAllAssets from '$lib/components/timeline/actions/SelectAllAction.svelte';
+  import StackAction from '$lib/components/timeline/actions/StackAction.svelte';
   import SetVisibilityAction from '$lib/components/timeline/actions/SetVisibilityAction.svelte';
   import AssetSelectControlBar from '$lib/components/timeline/AssetSelectControlBar.svelte';
   import Timeline from '$lib/components/timeline/Timeline.svelte';
@@ -63,6 +64,7 @@
 >
   <Timeline
     enableRouting={true}
+    withStacked
     bind:timelineManager
     {options}
     assetInteraction={assetMultiSelectManager}
@@ -82,6 +84,7 @@
     <SetVisibilityAction unlock onVisibilitySet={handleMoveOffLockedFolder} />
     <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
       <DownloadAction menuItem />
+      <StackAction {timelineManager} />
       <ChangeDate menuItem />
       <ChangeLocation menuItem />
       <RemoveFromAlbum menuItem />

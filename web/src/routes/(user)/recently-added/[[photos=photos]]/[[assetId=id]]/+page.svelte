@@ -123,13 +123,7 @@
 
       <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
         <DownloadAction menuItem />
-        {#if assetMultiSelectManager.assets.length > 1 || isAssetStackSelected}
-          <StackAction
-            unstack={isAssetStackSelected}
-            onStack={(result) => updateStackedAssetInTimeline(timelineManager, result)}
-            onUnstack={(assets) => updateUnstackedAssetInTimeline(timelineManager, assets)}
-          />
-        {/if}
+        <StackAction {timelineManager} />
         {#if isLinkActionAvailable}
           <LinkLivePhotoAction
             menuItem

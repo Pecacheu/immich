@@ -16,6 +16,7 @@
   import RemoveFromAlbum from '$lib/components/timeline/actions/RemoveFromAlbumAction.svelte';
   import DownloadAction from '$lib/components/timeline/actions/DownloadAction.svelte';
   import FavoriteAction from '$lib/components/timeline/actions/FavoriteAction.svelte';
+  import StackAction from '$lib/components/timeline/actions/StackAction.svelte';
   import SetVisibilityAction from '$lib/components/timeline/actions/SetVisibilityAction.svelte';
   import TagAction from '$lib/components/timeline/actions/TagAction.svelte';
   import AssetSelectControlBar from '$lib/components/timeline/AssetSelectControlBar.svelte';
@@ -374,6 +375,7 @@
             <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
               <ActionMenuItem action={Actions.AddToAlbum} />
               <DownloadAction menuItem />
+              <StackAction />
               <ChangeDate menuItem />
               <ChangeDescription menuItem />
               <ChangeLocation menuItem />

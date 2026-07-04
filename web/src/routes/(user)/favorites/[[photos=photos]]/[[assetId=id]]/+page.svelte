@@ -12,6 +12,7 @@
   import DownloadAction from '$lib/components/timeline/actions/DownloadAction.svelte';
   import FavoriteAction from '$lib/components/timeline/actions/FavoriteAction.svelte';
   import SelectAllAssets from '$lib/components/timeline/actions/SelectAllAction.svelte';
+  import StackAction from '$lib/components/timeline/actions/StackAction.svelte';
   import SetVisibilityAction from '$lib/components/timeline/actions/SetVisibilityAction.svelte';
   import TagAction from '$lib/components/timeline/actions/TagAction.svelte';
   import AssetSelectControlBar from '$lib/components/timeline/AssetSelectControlBar.svelte';
@@ -52,7 +53,7 @@
 <UserPageLayout hideNavbar={assetMultiSelectManager.selectionActive} title={data.meta.title} scrollbar={false}>
   <Timeline
     enableRouting={true}
-    withStacked={true}
+    withStacked
     bind:timelineManager
     {options}
     assetInteraction={assetMultiSelectManager}
@@ -75,6 +76,7 @@
     <ActionButton action={Actions.AddToAlbum} />
     <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
       <DownloadAction menuItem />
+      <StackAction {timelineManager} />
       <ChangeDate menuItem />
       <ChangeDescription menuItem />
       <ChangeLocation menuItem />

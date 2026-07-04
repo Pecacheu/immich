@@ -19,6 +19,7 @@
   import DownloadAction from '$lib/components/timeline/actions/DownloadAction.svelte';
   import FavoriteAction from '$lib/components/timeline/actions/FavoriteAction.svelte';
   import SelectAllAssets from '$lib/components/timeline/actions/SelectAllAction.svelte';
+  import StackAction from '$lib/components/timeline/actions/StackAction.svelte';
   import SetVisibilityAction from '$lib/components/timeline/actions/SetVisibilityAction.svelte';
   import TagAction from '$lib/components/timeline/actions/TagAction.svelte';
   import { AssetAction } from '$lib/constants';
@@ -104,6 +105,7 @@
     {#if tag.hasAssets}
       <Timeline
         enableRouting={true}
+        withStacked
         bind:timelineManager
         {options}
         assetInteraction={assetMultiSelectManager}
@@ -134,6 +136,7 @@
         ></FavoriteAction>
         <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
           <DownloadAction menuItem />
+          <StackAction {timelineManager} />
           <ChangeDate menuItem />
           <ChangeDescription menuItem />
           <ChangeLocation menuItem />

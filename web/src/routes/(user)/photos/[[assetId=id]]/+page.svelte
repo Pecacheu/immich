@@ -28,12 +28,7 @@
   import { Route } from '$lib/route';
   import { getAssetBulkActions } from '$lib/services/asset.service';
   import { getAssetMediaUrl, memoryLaneTitle } from '$lib/utils';
-  import {
-    updateStackedAssetInTimeline,
-    updateUnstackedAssetInTimeline,
-    type OnLink,
-    type OnUnlink,
-  } from '$lib/utils/actions';
+  import { type OnLink, type OnUnlink } from '$lib/utils/actions';
   import { openFileUploadDialog } from '$lib/utils/file-uploader';
   import { getAltText } from '$lib/utils/thumbnail-util';
   import { toTimelineAsset } from '$lib/utils/timeline-util';
@@ -47,7 +42,6 @@
   const options = { visibility: AssetVisibility.Timeline, withStacked: true, withPartners: true };
 
   let selectedAssets = $derived(assetMultiSelectManager.assets);
-  let isAssetStackSelected = $derived(selectedAssets.length === 1 && !!selectedAssets[0].stack);
   let isLinkActionAvailable = $derived.by(() => {
     const isLivePhoto = selectedAssets.length === 1 && !!selectedAssets[0].livePhotoVideoId;
     const isLivePhotoCandidate =
@@ -132,13 +126,7 @@
 
       <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
         <DownloadAction menuItem />
-        {#if assetMultiSelectManager.assets.length > 1 || isAssetStackSelected}
-          <StackAction
-            unstack={isAssetStackSelected}
-            onStack={(result) => updateStackedAssetInTimeline(timelineManager, result)}
-            onUnstack={(assets) => updateUnstackedAssetInTimeline(timelineManager, assets)}
-          />
-        {/if}
+        <StackAction {timelineManager} />
         {#if isLinkActionAvailable}
           <LinkLivePhotoAction
             menuItem
