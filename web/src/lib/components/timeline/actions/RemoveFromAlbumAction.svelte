@@ -13,7 +13,7 @@
     menuItem?: boolean;
   }
 
-  let { album, onRemove, menuItem = false }: Props = $props();
+  let { album = $bindable(), onRemove, menuItem = false }: Props = $props();
 
   const onAction = async () => {
     const assetIds = assetMultiSelectManager.assets.map(({ id }) => id) ?? [];
